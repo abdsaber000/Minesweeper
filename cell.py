@@ -21,12 +21,12 @@ class Cell:
         a cell can be opened if it's not marked or 
     """
     def open(self) -> None:
-        return
+        pass
     
     #TODO    
     """
         if cell is opened ignore, change state from OPENED to MARKED and vice versa.
     """
-    def flip_mark(self):
-        return
+    def flip_mark(self) -> None:
+        pass
     
