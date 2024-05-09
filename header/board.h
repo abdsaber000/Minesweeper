@@ -2,6 +2,9 @@
 #define BOARD
 #include <vector>
 #include "cell.h"
+#include "../exceptions/board_type_execption.h"
+#include "../exceptions/board_boundries_exception.h"
+
 using namespace std;
 
 enum {EASY, MEDIUM, HARD};
@@ -28,10 +31,8 @@ public:
     int get_col_size() const{
         return board[0].size();
     }
-
-    Cell* get_cell(int row , int col){
-        
-    }
+    bool is_valid_position(int row , int col);
+    Cell* get_cell(int row , int col);
 };
 
 #endif
