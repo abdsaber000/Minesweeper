@@ -1,5 +1,7 @@
 #!/bin/bash
 
-g++ ./source/*.cpp ./tests/*.cpp -o game
+g++ ./source/*.cpp ./tests/*.cpp -o game_test
 
-./game
+./game_test
+
+rm game_test
