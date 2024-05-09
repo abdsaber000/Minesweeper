@@ -1,7 +1,15 @@
 #!/bin/bash
 
-g++ ./source/*.cpp ./tests/*.cpp -o game_test
+#board tests
+g++ ./source/*.cpp ./tests/board.test.cpp -o board_test
 
-./game_test
+./board_test
 
-rm game_test
+rm board_test
+
+#cell tests
+g++ ./source/*.cpp ./tests/cell.test.cpp -o cell_test
+
+./cell_test
+
+rm cell_test
