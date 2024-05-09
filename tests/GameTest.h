@@ -27,7 +27,7 @@ public:
                 << get_status_message(tests[test_case]) << "\n";
         }
 
-        cout << test_name << " ended.\n";
+        cout << test_name << " ended.\n\n";
     }
 };
 
