@@ -21,6 +21,17 @@ public:
     Board(int row_size,  int col_size , int mines_number);
 
     static Board* create_board(int board_type);
+    int get_row_size() const{
+        return board.size();
+    }
+
+    int get_col_size() const{
+        return board[0].size();
+    }
+
+    Cell* get_cell(int row , int col){
+        
+    }
 };
 
 #endif
