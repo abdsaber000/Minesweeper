@@ -7,8 +7,7 @@ class Game{
     Board *board;
 
 public:
-
-    Game();
+    void create_board(int level);
 };
 
 #endif
