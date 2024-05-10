@@ -4,6 +4,7 @@
 class Cell{
     int x;
     int y;
+    int mines_number;
     bool is_clicked;
     bool is_marked;
     bool has_mine;
