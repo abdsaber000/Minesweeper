@@ -15,36 +15,63 @@ Board * Board::create_board(int board_type){
 
 Board::Board(int row_size, int col_size, int mines_number){
     board = vector<vector<Cell*>> (row_size, vector<Cell*> (col_size , nullptr));
-    for(int i = 0; i < mines_number; i++){
-        int x = -1, y = -1;
-        do{
-            x = rand() % row_size;
-            y = rand() % col_size;
-        }while(board[x][y] != nullptr);
+    this->mines_number = mines_number;
+    preprocess_board();
+}
 
-        board[x][y] = new Cell(x, y, true, -1);
+Position Board::random_unused_position(){
+    int row_size = get_row_size() , col_size = get_col_size();
+    int x = -1, y = -1;
+    do{
+        x = rand() % row_size;
+        y = rand() % col_size;
+    }while(board[x][y] != nullptr);
+    return Position(x , y);
+}
+
+void Board::preprocess_mines(){
+    
+    for(int _ = 0; _ < mines_number; _++){
+        auto random_position = random_unused_position();
+        board[random_position.x][random_position.y] = 
+            new Cell(random_position.x, random_position.y, true, -1);
     }
+}
+
+bool Board::has_mine(int row ,int col){
+    return board[row][col] != nullptr && board[row][col]->get_has_mine();
+}
+
+int Board::count_neighbour_mines(int i , int j){
+    int count_neighbour_mines = 0;
+    for(int dx = -1; dx <= 1; dx++){
+        for(int dy = -1; dy <= 1; dy++){
+            if(dx == 0 && dy == 0){
+                continue;
+            }
+            if(is_valid_position(i + dx, j + dy) && has_mine(i + dx, j + dy)){
+                count_neighbour_mines++;
+            }
+        }
+    }
+    return count_neighbour_mines;
+}
+
+void Board::add_neighbour_mines_count(){
+    int row_size = get_row_size() , col_size = get_col_size();
     for(int i = 0; i < row_size; i++){
         for(int j = 0; j < col_size; j++){
             if(board[i][j] != nullptr){
                 continue;
             }
-            int count_neighbour_mines = 0;
-            for(int dx = -1; dx <= 1; dx++){
-                for(int dy = -1; dy <= 1; dy++){
-                    if(dx == 0 && dy == 0){
-                        continue;
-                    }
-                    if(is_valid_position(i + dx, j + dy)){
-                        if(board[i + dx][j + dy] != nullptr && board[i + dx][j + dy]->get_has_mine() == true){
-                            count_neighbour_mines++;
-                        }
-                    }
-                }
-            }
-            board[i][j] = new Cell(i, j, false, count_neighbour_mines);
+            board[i][j] = new Cell(i, j, false, count_neighbour_mines(i,j));
         }
     }
+}
+
+void Board::preprocess_board(){
+    preprocess_mines();
+    add_neighbour_mines_count();
 }
 
 bool Board::is_valid_position(int row , int col){
