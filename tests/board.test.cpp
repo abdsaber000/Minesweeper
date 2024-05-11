@@ -93,4 +93,8 @@ int main(){
     test_get_cell();
 
     game_test->run();
+
+    Board* board = Board::create_board(EASY);
+    
+
 }
