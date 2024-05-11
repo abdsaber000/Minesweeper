@@ -1,24 +1,42 @@
 #include "../header/cell.h"
 
 
-Cell::Cell(int x,  int y, bool has_mine){
+Cell::Cell(int x,  int y, bool has_mine, int neighbour_mines_number){
     this->x = x;
     this->y = y;
     this->has_mine = has_mine;
+    this->neighbour_mines_number = neighbour_mines_number;
     is_clicked = false;
     is_marked = false;
 }
 
-bool Cell::click(){
-    if(has_mine)
-        return false;
-    is_clicked = true;
-    return true;
+int Cell::get_neighbour_mines_number(){
+    return this->neighbour_mines_number;
 }
 
-bool Cell::mark(){
-    if(is_clicked)
-        return false;
+bool Cell::get_has_mine(){
+    return this->has_mine;
+}
+
+bool Cell::is_releaved(){
+    return this->is_clicked;
+}
+
+
+void Cell::click(){
+    if(has_mine){
+
+    }
+    is_clicked = true;
+}
+
+void Cell::mark(){
+    if(is_clicked){
+
+    }
     is_marked = !is_marked;
-    return true;
+}
+
+bool Cell::get_is_marked(){
+    return this->is_marked;
 }

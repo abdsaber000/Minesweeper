@@ -15,6 +15,36 @@ Board * Board::create_board(int board_type){
 
 Board::Board(int row_size, int col_size, int mines_number){
     board = vector<vector<Cell*>> (row_size, vector<Cell*> (col_size , nullptr));
+    for(int i = 0; i < mines_number; i++){
+        int x = -1, y = -1;
+        do{
+            x = rand() % row_size;
+            y = rand() % col_size;
+        }while(board[x][y] != nullptr);
+
+        board[x][y] = new Cell(x, y, true, -1);
+    }
+    for(int i = 0; i < row_size; i++){
+        for(int j = 0; j < col_size; j++){
+            if(board[i][j] != nullptr){
+                continue;
+            }
+            int count_neighbour_mines = 0;
+            for(int dx = -1; dx <= 1; dx++){
+                for(int dy = -1; dy <= 1; dy++){
+                    if(dx == 0 && dy == 0){
+                        continue;
+                    }
+                    if(is_valid_position(i + dx, j + dy)){
+                        if(board[i + dx][j + dy] != nullptr && board[i + dx][j + dy]->get_has_mine() == true){
+                            count_neighbour_mines++;
+                        }
+                    }
+                }
+            }
+            board[i][j] = new Cell(i, j, false, count_neighbour_mines);
+        }
+    }
 }
 
 bool Board::is_valid_position(int row , int col){
