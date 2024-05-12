@@ -1,6 +1,17 @@
 #include "../header/board.h"
 
 
+#include <chrono>
+#include <random>
+// write this line once in top
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count() * ((uint64_t) new char | 1));
+// use this instead of rand()
+template <typename T>
+T Rand(T low, T high)
+{
+	return uniform_int_distribution<T>(low, high)(rng);
+}
+
 Board * Board::create_board(int board_type){
     if(board_type == EASY)
         return new Board(EASY_BOARD_SIZE , EASY_BOARD_SIZE , EASY_MINES_NUMBER);
@@ -24,8 +35,8 @@ Position Board::random_unused_position(){
     int row_size = get_row_size() , col_size = get_col_size();
     int x = -1, y = -1;
     do{
-        x = rand() % row_size;
-        y = rand() % col_size;
+        x = Rand(0 , row_size - 1);
+        y = Rand(0 , col_size - 1);
     }while(board[x][y] != nullptr);
     return Position(x , y);
 }
