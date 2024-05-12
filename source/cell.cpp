@@ -18,21 +18,21 @@ bool Cell::get_has_mine(){
     return this->has_mine;
 }
 
-bool Cell::is_releaved(){
+bool Cell::get_is_clicked(){
     return this->is_clicked;
 }
 
 
 void Cell::click(){
-    if(has_mine){
-
+    if(is_clicked){
+        throw new CellClickUsedException;
     }
     is_clicked = true;
 }
 
 void Cell::mark(){
     if(is_clicked){
-
+        throw new CellClickUsedException;
     }
     is_marked = !is_marked;
 }

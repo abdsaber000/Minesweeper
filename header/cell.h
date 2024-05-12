@@ -1,6 +1,8 @@
 #ifndef CELL
 #define CELL
 
+#include "../exceptions/cell_click_used_exception.h"
+
 class Cell{
     int x;
     int y;
@@ -12,7 +14,7 @@ public:
     Cell(int x,  int y, bool has_mine, int neighbour_mines_number);
     int get_neighbour_mines_number();
     bool get_has_mine();
-    bool is_releaved();
+    bool get_is_clicked();
     bool get_is_marked();
     void click();
     void mark();
