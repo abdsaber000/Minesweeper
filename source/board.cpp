@@ -1,5 +1,6 @@
 #include "../header/board.h"
 
+
 Board * Board::create_board(int board_type){
     if(board_type == EASY)
         return new Board(EASY_BOARD_SIZE , EASY_BOARD_SIZE , EASY_MINES_NUMBER);
@@ -81,5 +82,22 @@ bool Board::is_valid_position(int row , int col){
 Cell* Board::get_cell(int row , int col){
     if(!is_valid_position(row, col))
         throw new BoardBoundriesExecption;
+    if(board[row][col]->get_is_clicked() == true){
+        throw new CellClickUsedException;
+    }
     return board[row][col];
+}
+
+void Board::reveal_all_cells(){
+    for(int i = 0; i < get_row_size(); i++){
+        for(int j = 0; j < get_col_size(); j++){
+            if(board[i][j]->get_is_marked() == true){
+                board[i][j]->mark();
+            }
+            if(board[i][j]->get_is_clicked() == true){
+                continue;
+            }
+            board[i][j]->click();
+        }
+    }
 }

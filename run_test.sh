@@ -18,3 +18,6 @@ rm game_test
 #boardUi tests
 g++ ./source/*.cpp ./tests/boardUiTest.cpp -o board_ui_test
 ./board_ui_test
+rm board_ui_test
+
+

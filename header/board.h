@@ -4,11 +4,12 @@
 #include "cell.h"
 #include "../exceptions/board_type_execption.h"
 #include "../exceptions/board_boundries_exception.h"
+#include "../exceptions/cell_click_used_exception.h"
 #include "position.h"
 
 using namespace std;
 
-enum {EASY, MEDIUM, HARD};
+enum {EASY = 1, MEDIUM = 2, HARD = 3};
 #define EASY_BOARD_SIZE 8
 #define MEDIUM_BOARD_SIZE 10
 #define HARD_BOARD_SIZE 12
@@ -40,6 +41,7 @@ public:
     }
     bool is_valid_position(int row , int col);
     Cell* get_cell(int row , int col);
+    void reveal_all_cells();
 };
 
 #endif

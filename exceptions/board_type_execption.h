@@ -7,7 +7,7 @@ class BoardTypeExecption : public GameException{
 
 public:
     BoardTypeExecption() : 
-        GameException("Invalid board type, should be between 0 and 2") 
+        GameException("Invalid board type, should be between 1 and 3") 
     {
         
     }

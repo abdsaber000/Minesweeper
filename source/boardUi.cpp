@@ -10,7 +10,7 @@ void BoardUi::clear_screen() {
 }
 
 void BoardUi::print_cell(Cell* cell){
-    if(cell->is_releaved() == false){
+    if(cell->get_is_clicked() == false){
         cout << LIGHT_GREY_BACKGROUND << ' ' << RESET;
         return;
     }
