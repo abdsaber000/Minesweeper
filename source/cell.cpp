@@ -25,14 +25,14 @@ bool Cell::get_is_clicked(){
 
 void Cell::click(){
     if(is_clicked){
-        
+        throw new CellClickUsedException;
     }
     is_clicked = true;
 }
 
 void Cell::mark(){
     if(is_clicked){
-        
+        throw new CellClickUsedException;
     }
     is_marked = !is_marked;
 }

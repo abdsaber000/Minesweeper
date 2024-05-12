@@ -1,6 +1,8 @@
 #ifndef CELL
 #define CELL
 
+#include "../exceptions/cell_click_used_exception.h"
+
 class Cell{
     int x;
     int y;

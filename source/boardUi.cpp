@@ -10,6 +10,11 @@ void BoardUi::clear_screen() {
 }
 
 void BoardUi::print_cell(Cell* cell){
+    if(cell->get_is_marked() == true){
+        cout << LIGHT_GREY_BACKGROUND << RED << FLAG << RESET;
+        return;
+    }
+    
     if(cell->get_is_clicked() == false){
         cout << LIGHT_GREY_BACKGROUND << ' ' << RESET;
         return;
@@ -20,10 +25,6 @@ void BoardUi::print_cell(Cell* cell){
         return;
     }
 
-    if(cell->get_is_marked() == true){
-        cout << LIGHT_GREY_BACKGROUND << RED << FLAG << RESET;
-        return;
-    }
 
     int mines_count = cell->get_neighbour_mines_number();
 

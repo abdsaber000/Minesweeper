@@ -65,6 +65,12 @@ void Game::play(){
         cin >> x;
         cout << "Enter the y position: ";
         cin >> y;
+        try{
+            board->get_cell(x, y);
+        }catch(GameException* error){
+            cout << error->error_message() << '\n';
+            continue;
+        }
         cout << "Enter the letter 'M' for mark or 'C' for click: ";
         char choice;
         cin >> choice;
@@ -73,17 +79,17 @@ void Game::play(){
             continue;
         }
         try{
-            board->get_cell(x, y);
+            if(choice == MARK_CHOICE){
+                mark_cell(x, y);
+            }
+            else if(choice == CLICK_CHOICE){
+                click_cell(x, y);
+            }
         }catch(GameException* error){
-            cout << error->error_message() << '\n';
+            cout << error->error_message() << "\n";
             continue;
         }
-        if(choice == MARK_CHOICE){
-            mark_cell(x, y);
-        }
-        else if(choice == CLICK_CHOICE){
-            click_cell(x, y);
-        }
+        
         check_win();
         if(status == RUNNING){
             board_ui->print_board(board);
@@ -111,8 +117,8 @@ void Game::reveal_cell(int x, int y, bool flag){
         status = LOSE;
         return;
     }
-    cout << "a7a\n";
-    return;
+    
+    
     board->get_cell(x, y)->click();
     if(board->get_cell(x, y)->get_neighbour_mines_number() > 0){
         return;
@@ -143,8 +149,5 @@ void Game::click_cell(int x, int y){
 }
 
 void Game::mark_cell(int x, int y){
-    if(board->get_cell(x, y)->get_is_clicked() == true){
-        
-    }
     reveal_cell(x, y, true);
 }
