@@ -93,9 +93,7 @@ bool Board::is_valid_position(int row , int col){
 Cell* Board::get_cell(int row , int col){
     if(!is_valid_position(row, col))
         throw new BoardBoundriesExecption;
-    // if(board[row][col]->get_is_clicked() == true){
-    //     throw new CellClickUsedException;
-    // }
+        
     return board[row][col];
 }
 
