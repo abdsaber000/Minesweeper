@@ -54,7 +54,7 @@ Position Game::get_play_position(){
     cin >> x;
     cout << "Enter the y position: ";
     cin >> y;
-
+    x--,y--;
     board->get_cell(x, y); // check if it's valid
 
     return Position(x,y);
