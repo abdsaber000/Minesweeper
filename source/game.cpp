@@ -1,9 +1,5 @@
 #include "../header/game.h"
-#include "../header/board.h"
-#include "../exceptions/game_exception.h"
-#include <iostream>
 
-using namespace std;
 
 void Game::display_difficulty_menu() {
     cout << "\nChoose Difficulty:\n";

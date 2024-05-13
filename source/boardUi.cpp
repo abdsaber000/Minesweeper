@@ -1,9 +1,4 @@
 #include "../header/boardUI.h"
-#include <iostream>
-#include <map>
-#include <bits/stdc++.h>
-
-using namespace std;
 
 void BoardUi::clear_screen() {
     cout << "\033[2J\033[1;1H";
@@ -14,7 +9,7 @@ void BoardUi::print_cell(Cell* cell){
         cout << LIGHT_GREY_BACKGROUND << RED << FLAG << RESET;
         return;
     }
-    
+
     if(cell->get_is_clicked() == false){
         cout << LIGHT_GREY_BACKGROUND << ' ' << RESET;
         return;

@@ -5,6 +5,10 @@
 #include "boardUI.h"
 #include "position.h"
 #include "../exceptions/invalid_move_type_choice.h"
+#include "../exceptions/game_exception.h"
+#include<iostream>
+
+using namespace std;
 
 #define MARK_CHOICE 'M'
 #define CLICK_CHOICE 'C'
