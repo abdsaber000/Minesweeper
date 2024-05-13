@@ -27,6 +27,9 @@ void Cell::click(){
     if(is_clicked){
         throw new CellClickUsedException;
     }
+    if(is_marked){
+        throw new ClickMarkedCellException;
+    }
     is_clicked = true;
 }
 

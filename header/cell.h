@@ -2,6 +2,7 @@
 #define CELL
 
 #include "../exceptions/cell_click_used_exception.h"
+#include "../exceptions/click_marked_cell.h"
 
 class Cell{
     int x;
