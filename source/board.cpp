@@ -14,13 +14,13 @@ T Rand(T low, T high)
 
 Board * Board::create_board(int board_type){
     if(board_type == EASY)
-        return new Board(EASY_BOARD_SIZE , EASY_BOARD_SIZE , EASY_MINES_NUMBER);
+        return new Board(EASY_BOARD_SIZE , EASY_BOARD_SIZE, EASY_MINES_NUMBER);
     
     if(board_type == MEDIUM)
-        return new Board(MEDIUM_BOARD_SIZE , MEDIUM_BOARD_SIZE , MEDIUM_MINES_NUMBER);
+        return new Board(MEDIUM_BOARD_SIZE , MEDIUM_BOARD_SIZE + MEDIUM_BOARD_SIZE / 2, MEDIUM_MINES_NUMBER);
 
     if(board_type == HARD)
-        return new Board(HARD_BOARD_SIZE , HARD_BOARD_SIZE , HARD_MINES_NUMBER);
+        return new Board(HARD_BOARD_SIZE , HARD_BOARD_SIZE + HARD_BOARD_SIZE / 2, HARD_MINES_NUMBER);
 
     throw new BoardTypeExecption;
 }
@@ -109,4 +109,16 @@ void Board::reveal_all_cells(){
             board[i][j]->click();
         }
     }
+}
+
+void Board::add_one_opened_cell(){
+    this->opened_cells++;
+}
+
+int Board::get_mines_count(){
+    return this->mines_number;
+}
+
+int Board::get_opened_cells_count(){
+    return this->opened_cells;
 }

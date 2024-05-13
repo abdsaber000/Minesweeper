@@ -21,7 +21,7 @@ enum {EASY = 1, MEDIUM = 2, HARD = 3};
 
 class Board{
     vector< vector<Cell*> > board;
-    int mines_number;
+    int mines_number, opened_cells;
     void preprocess_board();
     void preprocess_mines();
     void add_neighbour_mines_count();
@@ -42,6 +42,9 @@ public:
     bool is_valid_position(int row , int col);
     Cell* get_cell(int row , int col);
     void reveal_all_cells();
+    void add_one_opened_cell();
+    int get_mines_count();
+    int get_opened_cells_count();
 };
 
 #endif
