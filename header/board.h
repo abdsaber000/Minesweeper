@@ -20,7 +20,7 @@ enum {EASY = 1, MEDIUM = 2, HARD = 3};
 
 
 class Board{
-    vector<vector<Cell*>> board;
+    vector< vector<Cell*> > board;
     int mines_number, opened_cells;
     void preprocess_board();
     void preprocess_mines();
