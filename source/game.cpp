@@ -19,24 +19,8 @@ void Game::create_board(int level){
 
 
 void Game::check_win(){
-    bool all_clicked_except_mines = true;
-    for(int i = 0; i < board->get_row_size(); i++){
-        for(int j = 0; j < board->get_col_size(); j++){
-            Cell* current_cell;
-            try{
-                current_cell = board->get_cell(i, j);
-                if(current_cell->get_has_mine() == false){
-                    all_clicked_except_mines = false;
-                }
-            }catch(GameException* error){
-                if(current_cell->get_has_mine() == true){
-                    all_clicked_except_mines = false;
-                }    
-            }
-            
-        }
-    }
-    if(all_clicked_except_mines == true){
+    int total_non_mine_cells = board->get_row_size() * board->get_col_size() - board->get_mines_count();
+    if(total_non_mine_cells == board->get_opened_cells_count()){
         status = WIN;
     }
 }
@@ -65,6 +49,7 @@ void Game::play(){
         cin >> x;
         cout << "Enter the y position: ";
         cin >> y;
+        x--; y--;
         try{
             board->get_cell(x, y);
         }catch(GameException* error){
@@ -120,6 +105,7 @@ void Game::reveal_cell(int x, int y, bool flag){
     
     
     board->get_cell(x, y)->click();
+    board->add_one_opened_cell();
     if(board->get_cell(x, y)->get_neighbour_mines_number() > 0){
         return;
     }
