@@ -7,7 +7,7 @@ class InvalidMoveTypeChoiceException : public GameException{
 
 public:
     InvalidMoveTypeChoiceException() : 
-        GameException("Invalid choice. Type 'M' to mark or 'C' to click.") 
+        GameException("Invalid choice. Type 'M' to mark or 'C' to click.\n") 
     {
         
     }

@@ -42,6 +42,17 @@ void Game::game_end_screen(){
     }
 }
 
+bool Game::invalid_input(string &x) {
+    if (x.size() == 0 || x.size() >= 3)
+        return true;
+    else if ((x[0] - '0') < 1 || (x[0] - '0') > 9)
+        return true;
+    else if (x.size() == 2 && ((x[1] - '0') < 0 || (x[1] - '0') > 9))
+        return true;
+    return false;
+}
+
+
 Position Game::get_play_position(){
     string x, y;
     cout << "Enter the x position: ";
@@ -52,17 +63,7 @@ Position Game::get_play_position(){
     fflush(stdin);
     fflush(stdout);
     getline(cin, y);
-    if(x.size() == 0 || x.size() >= 3)
-        throw new BoardBoundriesExecption;
-    else if ((x[0] - '0') < 1 || (x[0] - '0') > 9)
-        throw new BoardBoundriesExecption;
-    else if (x.size() == 2 && ((x[1] - '0') < 0 || (x[1] - '0') > 9))
-        throw new BoardBoundriesExecption;
-    if (y.size() == 0 || y.size() >= 3)
-        throw new BoardBoundriesExecption;
-    else if ((y[0] - '0') < 1 || (y[0] - '0') > 9)
-        throw new BoardBoundriesExecption;
-    else if (y.size() == 2 && ((y[1] - '0') < 0 || (y[1] - '0') > 9))
+    if(invalid_input(x) || invalid_input(y)) 
         throw new BoardBoundriesExecption;
     int nx = stoi(x);
     int ny = stoi(y);
@@ -73,12 +74,25 @@ Position Game::get_play_position(){
 
 char Game::get_player_choice(){
     cout << "Enter the letter 'M' for mark or 'C' for click: ";
-    char choice;
-    cin >> choice;
-    if(choice != MARK_CHOICE && choice != CLICK_CHOICE){
-        throw new InvalidMoveTypeChoiceException;
+    string choice;
+    while (1)
+    {
+        fflush(stdin);
+        fflush(stdout);
+        getline(cin , choice);
+        try
+        {
+            if (choice.empty() || choice.size() > 1 || toupper(choice[0]) != MARK_CHOICE && toupper(choice[0]) != CLICK_CHOICE)
+            {
+                throw new InvalidMoveTypeChoiceException;
+            }
+            return toupper(choice[0]);
+        }
+        catch(GameException *error)
+        {
+            cout << error->error_message();
+        }
     }
-    return choice;
 }
 
 
