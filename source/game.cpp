@@ -20,8 +20,7 @@ void Game::difficulty_screen(){
         try{
             if(difficulty.size() != 1 && (difficulty[0] - '0') < 1 && (difficulty[0] - '0') > 3)
                 throw new BoardTypeExecption;
-            create_board(difficulty[0] - '0');
-            game_controller->create_board(difficulty);
+            game_controller->create_board(difficulty[0] - '0');
             break;
         }catch(GameException* error){
             cout << error->error_message() << '\n';
@@ -50,9 +49,6 @@ Position Game::get_play_position(){
     fflush(stdout);
     getline(cin, x);
     cout << "Enter the y position: ";
-    cin >> y;
-    x--,y--;
-    game_controller->get_board()->get_cell(x, y); // check if it's valid
     fflush(stdin);
     fflush(stdout);
     getline(cin, y);
@@ -70,8 +66,7 @@ Position Game::get_play_position(){
         throw new BoardBoundriesExecption;
     int nx = stoi(x);
     int ny = stoi(y);
-    board->get_cell(nx - 1, ny - 1); // check if it's valid
-
+    game_controller->get_board()->get_cell(nx - 1, ny - 1); // check if it's valid
     return Position(nx - 1,ny - 1);
 
 }
