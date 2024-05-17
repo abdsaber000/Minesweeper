@@ -15,17 +15,20 @@ void displayMenu() {
 int main() {
     while(1){
         displayMenu();
-        int choice;
+        string choice;
         cout << "\nEnter the number of your choice: ";
         do{
-            cin >> choice;
-            if(choice == START_NEW_GAME){
+            fflush(stdin);
+            fflush(stdout);
+            getline(cin, choice);
+            if(choice.size() == 1 && (choice[0] - '0') == START_NEW_GAME){
                 cout << "Starting new game...\n";
                 Game* game = new Game();
                 game->play();
                 break;
             }
-            if(choice == EXIT_GAME){
+            if (choice.size() == 1 && (choice[0] - '0') == EXIT_GAME)
+            {
                 cout << "Exiting game...\n";
                 return 0;
             }

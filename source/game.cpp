@@ -12,15 +12,21 @@ void Game::display_difficulty_menu() {
 void Game::difficulty_screen(){
     display_difficulty_menu();
 
-    int difficulty;
-    cin >> difficulty;
+    string difficulty;
+    fflush(stdin);
+    fflush(stdout);
+    getline(cin , difficulty);
     while(1){
         try{
-            game_controller->create_board(difficulty);
+            if(difficulty.size() != 1 || (difficulty[0] - '0') < 1 || (difficulty[0] - '0') > 3)
+                throw new BoardTypeExecption;
+            game_controller->create_board(difficulty[0] - '0');
             break;
         }catch(GameException* error){
             cout << error->error_message() << '\n';
-            cin >> difficulty;
+            fflush(stdin);
+            fflush(stdout);
+            getline(cin, difficulty);
         }
     }
 }
@@ -36,27 +42,57 @@ void Game::game_end_screen(){
     }
 }
 
-Position Game::get_play_position(){
-    int x, y;
-    cout << "Enter the x position: ";
-    cin >> x;
-    cout << "Enter the y position: ";
-    cin >> y;
-    x--,y--;
-    game_controller->get_board()->get_cell(x, y); // check if it's valid
+bool Game::invalid_input(string &x) {
+    if (x.size() == 0 || x.size() >= 3)
+        return true;
+    else if ((x[0] - '0') < 1 || (x[0] - '0') > 9)
+        return true;
+    else if (x.size() == 2 && ((x[1] - '0') < 0 || (x[1] - '0') > 9))
+        return true;
+    return false;
+}
 
-    return Position(x,y);
+
+Position Game::get_play_position(){
+    string x, y;
+    cout << "Enter the x position: ";
+    fflush(stdin);
+    fflush(stdout);
+    getline(cin, x);
+    cout << "Enter the y position: ";
+    fflush(stdin);
+    fflush(stdout);
+    getline(cin, y);
+    if(invalid_input(x) || invalid_input(y)) 
+        throw new BoardBoundriesExecption;
+    int nx = stoi(x);
+    int ny = stoi(y);
+    game_controller->get_board()->get_cell(nx - 1, ny - 1); // check if it's valid
+    return Position(nx - 1,ny - 1);
 
 }
 
 char Game::get_player_choice(){
     cout << "Enter the letter 'M' for mark or 'C' for click: ";
-    char choice;
-    cin >> choice;
-    if(choice != MARK_CHOICE && choice != CLICK_CHOICE){
-        throw new InvalidMoveTypeChoiceException;
+    string choice;
+    while (1)
+    {
+        fflush(stdin);
+        fflush(stdout);
+        getline(cin , choice);
+        try
+        {
+            if (choice.empty() || choice.size() > 1 || toupper(choice[0]) != MARK_CHOICE && toupper(choice[0]) != CLICK_CHOICE)
+            {
+                throw new InvalidMoveTypeChoiceException;
+            }
+            return toupper(choice[0]);
+        }
+        catch(GameException *error)
+        {
+            cout << error->error_message();
+        }
     }
-    return choice;
 }
 
 
