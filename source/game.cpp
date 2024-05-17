@@ -18,7 +18,7 @@ void Game::difficulty_screen(){
     getline(cin , difficulty);
     while(1){
         try{
-            if(difficulty.size() != 1 && (difficulty[0] - '0') < 1 && (difficulty[0] - '0') > 3)
+            if(difficulty.size() != 1 || (difficulty[0] - '0') < 1 || (difficulty[0] - '0') > 3)
                 throw new BoardTypeExecption;
             game_controller->create_board(difficulty[0] - '0');
             break;
