@@ -24,15 +24,21 @@ void Game::check_win(){
 void Game::difficulty_screen(){
     display_difficulty_menu();
 
-    int difficulty;
-    cin >> difficulty;
+    string difficulty;
+    fflush(stdin);
+    fflush(stdout);
+    getline(cin , difficulty);
     while(1){
         try{
-            create_board(difficulty);
+            if(difficulty.size() != 1 && (difficulty[0] - '0') < 1 && (difficulty[0] - '0') > 3)
+                throw new BoardTypeExecption;
+            create_board(difficulty[0] - '0');
             break;
         }catch(GameException* error){
             cout << error->error_message() << '\n';
-            cin >> difficulty;
+            fflush(stdin);
+            fflush(stdout);
+            getline(cin, difficulty);
         }
     }
 }
@@ -49,15 +55,32 @@ void Game::game_end_screen(){
 }
 
 Position Game::get_play_position(){
-    int x, y;
+    string x, y;
     cout << "Enter the x position: ";
-    cin >> x;
+    fflush(stdin);
+    fflush(stdout);
+    getline(cin, x);
     cout << "Enter the y position: ";
-    cin >> y;
+    fflush(stdin);
+    fflush(stdout);
+    getline(cin, y);
+    if(x.size() == 0 || x.size() >= 3)
+        throw new BoardBoundriesExecption;
+    else if ((x[0] - '0') < 1 || (x[0] - '0') > 9)
+        throw new BoardBoundriesExecption;
+    else if (x.size() == 2 && ((x[1] - '0') < 0 || (x[1] - '0') > 9))
+        throw new BoardBoundriesExecption;
+    if (y.size() == 0 || y.size() >= 3)
+        throw new BoardBoundriesExecption;
+    else if ((y[0] - '0') < 1 || (y[0] - '0') > 9)
+        throw new BoardBoundriesExecption;
+    else if (y.size() == 2 && ((y[1] - '0') < 0 || (y[1] - '0') > 9))
+        throw new BoardBoundriesExecption;
+    int nx = stoi(x);
+    int ny = stoi(y);
+    board->get_cell(nx - 1, ny - 1); // check if it's valid
 
-    board->get_cell(x, y); // check if it's valid
-
-    return Position(x,y);
+    return Position(nx - 1,ny - 1);
 
 }
 
