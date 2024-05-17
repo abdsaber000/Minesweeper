@@ -28,6 +28,7 @@ class Game{
         char get_player_choice();
         void display_difficulty_menu();
         bool invalid_input(string &x);
+        string read_input();
     public:
         void play();
 };

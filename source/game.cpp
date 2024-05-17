@@ -1,6 +1,14 @@
 #include "../header/game.h"
 
 
+string Game::read_input(){
+    string s;
+    fflush(stdin);
+    fflush(stdout);
+    getline(cin , s);
+    return s;
+}
+
 void Game::display_difficulty_menu() {
     cout << "\nChoose Difficulty:\n";
     cout << "1. Easy\n";
@@ -12,10 +20,7 @@ void Game::display_difficulty_menu() {
 void Game::difficulty_screen(){
     display_difficulty_menu();
 
-    string difficulty;
-    fflush(stdin);
-    fflush(stdout);
-    getline(cin , difficulty);
+    string difficulty = read_input();
     while(1){
         try{
             if(difficulty.size() != 1 || (difficulty[0] - '0') < 1 || (difficulty[0] - '0') > 3)
@@ -24,9 +29,7 @@ void Game::difficulty_screen(){
             break;
         }catch(GameException* error){
             cout << error->error_message() << '\n';
-            fflush(stdin);
-            fflush(stdout);
-            getline(cin, difficulty);
+            difficulty = read_input();
         }
     }
 }
@@ -56,13 +59,9 @@ bool Game::invalid_input(string &x) {
 Position Game::get_play_position(){
     string x, y;
     cout << "Enter the x position: ";
-    fflush(stdin);
-    fflush(stdout);
-    getline(cin, x);
+    x = read_input();
     cout << "Enter the y position: ";
-    fflush(stdin);
-    fflush(stdout);
-    getline(cin, y);
+    y = read_input();
     if(invalid_input(x) || invalid_input(y)) 
         throw new BoardBoundriesExecption;
     int nx = stoi(x);
@@ -77,9 +76,7 @@ char Game::get_player_choice(){
     string choice;
     while (1)
     {
-        fflush(stdin);
-        fflush(stdout);
-        getline(cin , choice);
+        choice = read_input();
         try
         {
             if (choice.empty() || choice.size() > 1 || toupper(choice[0]) != MARK_CHOICE && toupper(choice[0]) != CLICK_CHOICE)
